@@ -1,5 +1,5 @@
 ---
-title: "Police Annual Statistical Report on Homicides"
+title: " Annual Statistical Report on Homicides in Toronto"
 subtitle: "My subtitle if needed"
 author: 
   - Sarah Lee
