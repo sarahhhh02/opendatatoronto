@@ -1,11 +1,10 @@
 ---
-title: "My title"
+title: "Police Annual Statistical Report on Homicides"
 subtitle: "My subtitle if needed"
 author: 
-  - First author
-  - Another author
+  - Sarah Lee
 thanks: "Code and data are available at: LINK."
-date: today
+date: format(Sys.time(), "%20 %01 %2024")
 date-format: long
 abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
 format: pdf
