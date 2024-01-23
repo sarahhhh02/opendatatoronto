@@ -8,37 +8,32 @@
 
 
 #### Workspace setup ####
-install.packages("tidyverse")
-install.packages("janitor")
-install.packages("opendatatoronto")
-install.packages("tibble")
+#install.packages("tidyverse")
+#install.packages("janitor")
+#install.packages("opendatatoronto")
+#install.packages("tibble")
 #install.packages("knitr")
 library(tidyverse)
 library(janitor)
-#library(knitr)
+library(knitr)
 library(lubridate)
 library(opendatatoronto)
 library(tibble)
 #### Simulate data ####
-# [...ADD CODE HERE...]
+# Create a sequence of dates from 2004-01-01 to 2020-12-31
 
-set.seed(1000)
+set.seed(225)
 
-stimulated_homicides_data <- 
+#gather data for 20 samples: year; type of homicide in which neighbourhood
+homicides_sim <- 
   tibble(
-    date = rep(x = as.Date("2004-01-03") + c(0:364), times = 3),
-    neighbourhood = c(
-      rep(x = "Oakdale-Beverley Heights", times = 365),
-      rep(x = "West Queen West", times = 365),
-      rep(x = "Kennedy Park", times = 365),
-      rep(x = "Church-Wellesley", times = 365),
-      rep(x = "Moss Park", times = 365)
-    ),
-    homicide_type = c(
-      rep(x = "Stabbing", times = 365),
-      rep(x = "Shooting", times = 365),
-      rep(x = "Other", times = 365)
-    )
+    year = sample(x = 2001:2020, size = 20, replace = TRUE),
+    homicide_type = sample(x = c("Stabbing", "Shooting", "Other"), size = 20, replace = TRUE),
+    neighbourhood = sample(x = c("Oakdale-Beverley Heights", "Queen West", 
+                                 "Kennedy Park", "Church-Wellesley", "Moss Park"), size = 20, replace = TRUE)
   )
+print(homicides_sim)
+
+
 
 
