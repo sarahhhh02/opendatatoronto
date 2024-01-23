@@ -7,6 +7,7 @@ date: today
 date-format: long
 abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
 format: pdf
+  toc: true
 number-sections: true
 bibliography: references.bib
 ---
@@ -15,9 +16,18 @@ bibliography: references.bib
 #| include: false
 #| warning: false
 #| message: false
-
+#| #### Load Packages ####
 library(tidyverse)
-library(palmerpenguins)
+library(opendatatoronto)
+library(knitr)
+library(dplyr)
+library(janitor)
+library(here)
+
+#### Load Data ####
+Homicides_data <- read_csv(
+  file = here("inputs/data/Homicides_data.csv"),
+  show_col_types = FALSE)
 ```
 
 # Table of Contents
@@ -37,6 +47,31 @@ The remainder of this paper is structured as follows. @sec-data....
 # Data {#sec-data}
 
 Some of our data is of penguins (@fig-bills), from @palmerpenguins.
+
+```{r}
+#cleaning the data
+head(Homicides_data)
+clean_homicide_data <-
+  clean_names(opendata)
+  filter(
+    
+    data_toronto_clean <-
+  clean_names(data_toronto) |>
+  select(x_id, area_name, population_2023, assault_2023, assault_rate_2023, autotheft_2023, autotheft_rate_2023,shooting_2023, shooting_rate_2023, robbery_2023,robbery_rate_2023) |>
+  rename(Neighbourhood = area_name,
+         Pop2023 = population_2023,
+         Assault = assault_2023,
+         A_Rate = assault_rate_2023,
+         Autotheft = autotheft_2023,
+         AT_Rate = autotheft_rate_2023,
+         Shooting = shooting_2023,
+         S_Rate = shooting_rate_2023,
+         Robbery = robbery_2023,
+         R_Rate = robbery_rate_2023,
+         ID = x_id) 
+    
+  )
+```
 
 ```{r}
 #| label: fig-bills
