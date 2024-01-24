@@ -9,6 +9,7 @@
 
 #### Workspace setup ####
 install.packages("dplyr")
+library(opendatatoronto)
 library(tidyverse)
 library(janitor)
 library(dplyr)
@@ -16,20 +17,16 @@ library(dplyr)
 #### Clean data ####
 Homicides_data <- read_csv("inputs/data/Homicides_data.csv")
 
-homicides_cleaned_data <-
+
+Homicides_data <- clean_names(Homicides_data)
+
+cleaned_data <-
   Homicides_data |>
   janitor::clean_names() |>
-  select(OCC_YEAR, OCC_MONTH, OCC_DAY, OCC_DOW, HOMICIDE_TYPE, HOOD_158, HOOD_140
-         ) |>
-  rename(year = OCC_YEAR,
-         month = OCC_MONTH,
-         day = OCC_DAY,
-         day_of_week = OCC_DOW,
-         homicide_type = HOMICIDE_TYPE,
-         neighbourhood_1 = HOOD_158,
-         neighbourhood_2 = HOOD_140
-         ) |> 
-  tidyr::drop_na()
+  select(Occurence_year, Occurence_month, Occurence_day, Occurence_dow, Homicide_type, Hood_158, Hood_140) |>
+  tidyr::drop_na()|> # drop all non valid entry
+  rename(Year = Occurence_year, Month = Occurence_month, OCC_DAY = Occurence_day, Day_of_week = Occurence_dow) 
 
 #### Save data ####
-write_csv(homicides_cleaned_data, "outputs/data/homicides_cleaned_data.csv")
+write_csv(x = Homicides_data, file = "outputs/data/edited_homicides_data.csv")
+
