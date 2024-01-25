@@ -15,17 +15,12 @@ library(janitor)
 library(dplyr)
 
 #### Clean data ####
-Homicides_data <- read_csv("inputs/data/Homicides_data.csv")
+Homicides_data <- read_csv("inputs/data/Homicides_data.csv", show_col_types = FALSE)
 
-
+Homicides_data <- Homicides_data |> select(OCC_YEAR, OCC_MONTH, OCC_DAY, OCC_DOW, HOMICIDE_TYPE, HOOD_158, HOOD_140)
+Homicides_data <- Homicides_data |> rename(year = OCC_YEAR, month = OCC_MONTH, day = OCC_DAY, day_of_week = OCC_DOW) 
+                                          
 Homicides_data <- clean_names(Homicides_data)
-
-cleaned_data <-
-  Homicides_data |>
-  janitor::clean_names() |>
-  select(Occurence_year, Occurence_month, Occurence_day, Occurence_dow, Homicide_type, Hood_158, Hood_140) |>
-  tidyr::drop_na()|> # drop all non valid entry
-  rename(Year = Occurence_year, Month = Occurence_month, OCC_DAY = Occurence_day, Day_of_week = Occurence_dow) 
 
 #### Save data ####
 write_csv(x = Homicides_data, file = "outputs/data/edited_homicides_data.csv")
