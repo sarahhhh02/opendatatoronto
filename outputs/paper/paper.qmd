@@ -66,7 +66,7 @@ knitr::kable(homicides_by_year,'markdown',col.names = c("Year", "Total Homicides
 
 ```
 
-Here now, we are going to look at the statistics behind the type of homicide. By @tbl-homicidetypecount, we are able to notice a exceeding number of "shooting" with 727 counts. Comparing with the other two types,"Stabbing with 317 and "Other" with 352, we can notice that majority of homicides are caused from the shooting method. 
+Here now, we are going to look at the statistics behind the type of homicide. By @tbl-homicidetypecount, we are able to notice a exceeding number of "shooting" with 727 counts. Comparing with the other two types, "Stabbing" with 317 and "Other" with 352, we can notice that majority of homicides are caused from the shooting method. 
 ```{r}
 #| message: false
 #| echo: false
@@ -102,7 +102,7 @@ homicides_by_year |>
 ```
 Taking a look at @fig-1, we can notice a major drop of homicide counts near the 2010 and 2011 mark. Then from 2011, it continues to carry a consistent trend until 2015. Then once again striking an increase of cases and continuing with inconsistent trends until the end of the graph. This graph does not tell us a significant trend, but it can tell us what kind of pattern it carries. 
 
-## Homicides by Neighbourhood {#Homicides by Neighbourhood}
+## Homicides by Neighbourhood {#sec-second-point}
 ```{r} 
 #| label: fig-2
 #| fig-cap: Homicides by Neighbourhood in their Divison Number
