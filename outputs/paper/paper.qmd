@@ -1,13 +1,13 @@
 ---
-title: "Annual Report on Homicides in Toronto: An overview of police related statistics on homicical crimes"
+title: "Annual Report on Homicides in Toronto: An Overview of Police Related Statistics on Homicidal Crimes"
 author: 
   - Sarah Lee
 thanks: "Code and data are available at: LINK."
 date: today
 date-format: long
-abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
+abstract: "Recognizing the importance of safety is to keep awareness of the homicide rates in Toronto and its surrounding factors. The dataset retrieved from OpenDataToronto keeps cases of homicide records between 2004 to 2023 covering Toronto. With this dataset, it is shown that there was a major drop of homicide cases through 2010 and 2011, carrying a consistent trend until 2015 and then picking up a considerable increase trend. On the whole, the most noticable factor is shootings being the most common homicide method."
 format: pdf
-  toc: true
+toc: true
 number-sections: true
 bibliography: references.bib
 ---
@@ -16,18 +16,21 @@ bibliography: references.bib
 #| include: false
 #| warning: false
 #| message: false
-#| #### Load Packages ####
-library(tidyverse)
+
+#### Workspace set-up ####
+
+## Load packages
 library(opendatatoronto)
+library(tidyverse)
 library(knitr)
 library(dplyr)
 library(janitor)
-library(here)
+library(ggplot2)
+library(gt)
 
 #### Load Data ####
-Homicides_data <- read_csv(
-  file = here("inputs/data/Homicides_data.csv"),
-  show_col_types = FALSE)
+edited_homicides_data <- read.csv(here::here("outputs/data/edited_homicides_data.csv"))
+show_col_types = FALSE
 ```
 
 # Table of Contents
@@ -40,207 +43,84 @@ Homicides_data <- read_csv(
 
 # Introduction
 
-You can and should cross-reference sections and sub-sections.
+Violence is exposed all over the world whether you like it or not. As citizens, it is important to understand and recognize the trends and distributions of homicide rates. Studying homicide rates not only motivates you for your safety and well-being but also delves into all the underlying factors that play into homicides. This paper explores the distribution of homicide rates between 2004 and 2023 along with its predominant methods. As well as recognizing where these distributions were located in Toronto, Canada. 
 
-The remainder of this paper is structured as follows. @sec-data....
+This paper uses the data set from the OpenDataToronto (@ropendatatoronto) portal. To be specific, the open data is retrieved from the "Police Annual Statistical Report - Homicides" (@citehomicidedata). This data set records numerous cases of homicides in Toronto with its relevant factors. Factors playing out are the location, year, day, month, day of the week, police division, and its unique ID case. With this data set, I plan to use the R programming language (@citeR) with its relevant tools like Tidyverse (@rtidyverse), janitor (@rjanitor), knitr (@rkintr), dplyr (@rdplyr), and lubridate (@rlubridate). With the use of this language, I will analyze the types of trends and patterns to how homicide rates play. 
+
 
 # Data {#sec-data}
 
-Some of our data is of penguins (@fig-bills), from @palmerpenguins.
+The original data set that was retrieved from the Open Data Toronto portal (@ropendatatoronto) which includes all cases of homicides from 2004 to 2023. In this data set, there includes the dates consisting of the year, month, day, and the days of the week. Moreover, it contains the details of what type of homicide it is and the location by its nearby neighborhood. Taking this data set, I cleaned the data by using the select() function to keep only the columns of data I was going to use for this paper.
 
 ```{r}
-#cleaning the data
-head(Homicides_data)
-clean_homicide_data <-
-  clean_names(opendata)
-  filter(
-    
-    data_toronto_clean <-
-  clean_names(data_toronto) |>
-  select(x_id, area_name, population_2023, assault_2023, assault_rate_2023, autotheft_2023, autotheft_rate_2023,shooting_2023, shooting_rate_2023, robbery_2023,robbery_rate_2023) |>
-  rename(Neighbourhood = area_name,
-         Pop2023 = population_2023,
-         Assault = assault_2023,
-         A_Rate = assault_rate_2023,
-         Autotheft = autotheft_2023,
-         AT_Rate = autotheft_rate_2023,
-         Shooting = shooting_2023,
-         S_Rate = shooting_rate_2023,
-         Robbery = robbery_2023,
-         R_Rate = robbery_rate_2023,
-         ID = x_id) 
-    
-  )
-```
-
-```{r}
-#| label: fig-bills
-#| fig-cap: Bills of penguins
-#| echo: false
-
-ggplot(penguins, aes(x = island, fill = species)) +
-  geom_bar(alpha = 0.8) +
-  scale_fill_manual(values = c("darkorange","purple","cyan4"),
-                    guide = "none") +
-  theme_minimal() +
-  facet_wrap(~species, ncol = 1) +
-  coord_flip()
-```
-
-Talk more about it.
-
-And also planes (@fig-planes). (You can change the height and width, but don't worry about doing that until you have finished every other aspect of the paper - Quarto will try to make it look nice and the defaults usually work well once you have enough text.)
-
-```{r}
-#| label: fig-planes
-#| fig-cap: Relationship between wing length and width
-#| echo: false
-#| warning: false
 #| message: false
+#| echo: false
+#| tbl-cap: Total Homicide Cases per Year
+#| #| label: tbl-homicidetypecounts
 
-analysis_data <- read_csv(here::here("outputs/data/analysis_data.csv"))
+# Assuming 'occurrence_year' is the column containing the year information
+homicides_by_year <- edited_homicides_data |>
+  group_by(year) |>
+  summarise(total = n())
 
-analysis_data |> 
-  ggplot(aes(x = width, y = length)) +
-  geom_point(alpha = 0.8) +
-  theme_minimal() +
-  labs(x = "Wing width (mm)",
-       y = "Wing length (mm)")
+knitr::kable(homicides_by_year,'markdown',col.names = c("Year", "Total Homicides"), align = 'c')
+
 ```
-
-Talk way more about it.
-
-# Model
-
-The goal of our modelling strategy is twofold. Firstly,...
-
-Here we briefly describe the Bayesian analysis model used to investigate... Background details and diagnostics are included in [Appendix -@sec-model-details].
-
-## Model set-up
-
-Define $y_i$ as the number of seconds that the plane remained aloft. Then $\beta_i$ is the wing width and $\gamma_i$ is the wing length, both measured in millimeters.
-
-```{=tex}
-\begin{align} 
-y_i|\mu_i, \sigma &\sim \mbox{Normal}(\mu_i, \sigma) \\
-\mu_i &= \alpha + \beta_i + \gamma_i\\
-\alpha &\sim \mbox{Normal}(0, 2.5) \\
-\beta &\sim \mbox{Normal}(0, 2.5) \\
-\gamma &\sim \mbox{Normal}(0, 2.5) \\
-\sigma &\sim \mbox{Exponential}(1)
-\end{align}
-```
-We run the model in R [@citeR] using the `rstanarm` package of @rstanarm. We use the default priors from `rstanarm`.
-
-### Model justification
-
-We expect a positive relationship between the size of the wings and time spent aloft. In particular...
-
-We can use maths by including latex between dollar signs, for instance $\theta$.
-
-# Results
-
-Our results are summarized in @tbl-modelresults.
 
 ```{r}
-#| echo: false
-#| eval: true
-#| warning: false
 #| message: false
+#| echo: false
+#| tbl-cap: Total Count of Each Homicide Type
+#| label: tbl-homicidetypecount
 
-library(rstanarm)
+homicides_by_type <- edited_homicides_data |>
+  group_by(homicide_type) |>
+  summarise(total = n())
 
-first_model <-
-  readRDS(file = here::here("outputs/models/first_model.rds"))
+kable(homicides_by_type, format = "html", col.names = c("Homicide Types", "Total"), align = 'c')
+
 ```
+## First data point {#sec-first-point}
 
 ```{r}
-#| echo: false
-#| eval: true
-#| label: tbl-modelresults
-#| tbl-cap: "Explanatory models of flight time based on wing width and wing length"
-#| warning: false
+#| label: fig-1
+#| fig-cap: Homicide Occurences from 2004-2023 Yearly
 
-modelsummary::modelsummary(
-  list(
-    "First model" = first_model
-  ),
-  statistic = "mad",
-  fmt = 2
-)
+#Line graph of total homicides per year
+data <- read.csv(here::here("outputs/data/edited_homicides_data.csv"))
+
+homicides_by_year <- data |>
+  group_by(year) |>
+  summarise(Homicides = n())
+
+homicides_by_year |>
+ ggplot(aes(x = year, y = Homicides)) +  
+  geom_line(stat = "identity") + 
+  theme_minimal() + 
+  labs(x = "Year", y = "Number of Homicides")
+```
+
+## Second data point {#sec-second-point}
+```{r} 
+#| label: fig-2
+
+data <- read.csv(here::here("outputs/data/edited_homicides_data.csv"))
+
+homicides_by_location <- data |> 
+  count(hood_158)
+
+homicides_by_location|>
+  ggplot(aes(x = hood_158, y = n)) +
+  geom_bar(stat = "identity") + 
+  theme_minimal() +
+  labs(x = "Neighbourhoods", y = "Number of Homicides")
+
 ```
 
 # Discussion
 
-## First discussion point {#sec-first-point}
 
-If my paper were 10 pages, then should be be at least 2.5 pages. The discussion is a chance to show off what you know and what you learnt from all this.
 
-## Second discussion point
-
-## Third discussion point
-
-## Weaknesses and next steps
-
-Weaknesses and next steps should also be included.
-
-\newpage
-
-\appendix
-
-# Appendix {.unnumbered}
-
-# Additional data details
-
-# Model details {#sec-model-details}
-
-## Posterior predictive check
-
-In @fig-ppcheckandposteriorvsprior-1 we implement a posterior predictive check. This shows...
-
-In @fig-ppcheckandposteriorvsprior-2 we compare the posterior with the prior. This shows...
-
-```{r}
-#| eval: true
-#| echo: false
-#| message: false
-#| warning: false
-#| label: fig-ppcheckandposteriorvsprior
-#| layout-ncol: 2
-#| fig-cap: "Examining how the model fits, and is affected by, the data"
-#| fig-subcap: ["Posterior prediction check", "Comparing the posterior with the prior"]
-
-pp_check(first_model) +
-  theme_classic() +
-  theme(legend.position = "bottom")
-
-posterior_vs_prior(first_model) +
-  theme_minimal() +
-  scale_color_brewer(palette = "Set1") +
-  theme(legend.position = "bottom") +
-  coord_flip()
-```
-
-## Diagnostics
-
-@fig-stanareyouokay-1 is a trace plot. It shows... This suggests...
-
-@fig-stanareyouokay-2 is a Rhat plot. It shows... This suggests...
-
-```{r}
-#| echo: false
-#| eval: true
-#| message: false
-#| warning: false
-#| label: fig-stanareyouokay
-#| fig-cap: "Checking the convergence of the MCMC algorithm"
-#| fig-subcap: ["Trace plot", "Rhat plot"]
-#| layout-ncol: 2
-
-plot(first_model, "trace")
-
-plot(first_model, "rhat")
-```
 
 \newpage
 
