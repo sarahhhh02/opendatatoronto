@@ -17,9 +17,12 @@ library(dplyr)
 #### Clean data ####
 Homicides_data <- read_csv("inputs/data/Homicides_data.csv", show_col_types = FALSE)
 
-Homicides_data <- Homicides_data |> select(OCC_YEAR, OCC_MONTH, OCC_DAY, OCC_DOW, HOMICIDE_TYPE, HOOD_158, HOOD_140)
-Homicides_data <- Homicides_data |> rename(year = OCC_YEAR, month = OCC_MONTH, day = OCC_DAY, day_of_week = OCC_DOW) 
-                                          
+Homicides_data <- 
+  Homicides_data |> 
+  select(OCC_YEAR, OCC_MONTH, OCC_DAY, OCC_DOW, HOMICIDE_TYPE, HOOD_158, HOOD_140)
+Homicides_data <- 
+  Homicides_data |> 
+  rename(year = OCC_YEAR, month = OCC_MONTH, day = OCC_DAY, day_of_week = OCC_DOW) 
 Homicides_data <- clean_names(Homicides_data)
 
 #### Save data ####
