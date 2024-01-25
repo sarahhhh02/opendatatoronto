@@ -33,24 +33,24 @@ edited_homicides_data <- read.csv(here::here("outputs/data/edited_homicides_data
 show_col_types = FALSE
 ```
 
-# Table of Contents
-
-**1 Introduction**
-
-**2 Data**
-
-**3 Discussion**
 
 # Introduction
 
 Violence is exposed all over the world whether you like it or not. As citizens, it is important to understand and recognize the trends and distributions of homicide rates. Studying homicide rates not only motivates you for your safety and well-being but also delves into all the underlying factors that play into homicides. This paper explores the distribution of homicide rates between 2004 and 2023 along with its predominant methods. As well as recognizing where these distributions were located in Toronto, Canada. 
 
-This paper uses the data set from the OpenDataToronto (@ropendatatoronto) portal. To be specific, the open data is retrieved from the "Police Annual Statistical Report - Homicides" (@citehomicidedata). This data set records numerous cases of homicides in Toronto with its relevant factors. Factors playing out are the location, year, day, month, day of the week, police division, and its unique ID case. With this data set, I plan to use the R programming language (@citeR) with its relevant tools like Tidyverse (@rtidyverse), janitor (@rjanitor), knitr (@rkintr), dplyr (@rdplyr), and lubridate (@rlubridate). With the use of this language, I will analyze the types of trends and patterns to how homicide rates play. 
+This paper uses the data set from the OpenDataToronto [@ropendatatoronto] portal. To be specific, the open data is retrieved from the "Police Annual Statistical Report - Homicides" [@citehomicidedata]. This data set records numerous cases of homicides in Toronto with its relevant factors. Factors playing out are the location, year, day, month, day of the week, police division, and its unique ID case. With this data set, I plan to use the R programming language [@citeR] with its relevant tools like Tidyverse [@rtidyverse], janitor [@rjanitor], knitr [@rknitr], dplyr [@rdplyr], and lubridate [@rlubridate]. With the use of this language, I will analyze the types of trends and patterns to how homicide rates play. 
+
+The major trends and patterns will be analyzed using the tool from ggplot2 [@rggplot2] that will graph the needed information. I will also make use of the tool knitr [@rknitr] to contruct tables to give a generalized view on what we are looking for in this paper. 
+
+All relevant materials supporting the code and data are available at Github.[^1]
+[^1]: https://github.com/sarahhhh02/opendatatoronto.git
 
 
 # Data {#sec-data}
 
-The original data set that was retrieved from the Open Data Toronto portal (@ropendatatoronto) which includes all cases of homicides from 2004 to 2023. In this data set, there includes the dates consisting of the year, month, day, and the days of the week. Moreover, it contains the details of what type of homicide it is and the location by its nearby neighborhood. Taking this data set, I cleaned the data by using the select() function to keep only the columns of data I was going to use for this paper.
+The original data set that was retrieved from the Open Data Toronto portal [@ropendatatoronto] which includes all cases of homicides from 2004 to 2023. In this data set, there includes the dates consisting of the year, month, day, and the days of the week. Moreover, it contains the details of what type of homicide it is and the location by its nearby neighborhood. Taking this data set, I cleaned the data by using the select() function to keep only the columns of data I was going to use for this paper.
+
+For the general data, we have @tbl-homicidetypecounts that presents us with the yearly homicide numbers from 2004 to 2023. From this data we are able to notice that the range of homicide counts are 50-100. Which doesn't really tell us much about the trend or pattern. But we will be able to discover some sort of pattern in @sec-first-point.
 
 ```{r}
 #| message: false
@@ -67,6 +67,7 @@ knitr::kable(homicides_by_year,'markdown',col.names = c("Year", "Total Homicides
 
 ```
 
+Here now, we are going to look at the statistics behind the type of homicide. By @tbl-homicidetypecount, we are able to notice a exceeding number of "shooting" with 727 counts. Comparing with the other two types,"Stabbing with 317 and "Other" with 352, we can notice that majority of homicides are caused from the shooting method. 
 ```{r}
 #| message: false
 #| echo: false
@@ -80,7 +81,8 @@ homicides_by_type <- edited_homicides_data |>
 kable(homicides_by_type, format = "html", col.names = c("Homicide Types", "Total"), align = 'c')
 
 ```
-## First data point {#sec-first-point}
+
+## Yearly Homicide Occurences between 2004 to 2023  {#sec-first-point}
 
 ```{r}
 #| label: fig-1
@@ -99,10 +101,12 @@ homicides_by_year |>
   theme_minimal() + 
   labs(x = "Year", y = "Number of Homicides")
 ```
+Taking a look at @fig-1, we can notice a major drop of homicide counts near the 2010 and 2011 mark. Then from 2011, it continues to carry a consistent trend until 2015. Then once again striking an increase of cases and continuing with inconsistent trends until the end of the graph. This graph does not tell us a significant trend, but it can tell us what kind of pattern it carries. 
 
-## Second data point {#sec-second-point}
+## Homicides by Neighbourhood {#Homicides by Neighbourhood}
 ```{r} 
 #| label: fig-2
+#| fig-cap: Homicides by Neighbourhood in their Divison Number
 
 data <- read.csv(here::here("outputs/data/edited_homicides_data.csv"))
 
@@ -119,9 +123,3 @@ homicides_by_location|>
 
 # Discussion
 
-
-
-
-\newpage
-
-# References
