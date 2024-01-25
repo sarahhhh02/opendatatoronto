@@ -2,7 +2,7 @@
 title: "Annual Report on Homicides in Toronto: An Overview of Police Related Statistics on Homicidal Crimes"
 author: 
   - Sarah Lee
-thanks: "Code and data are available at: LINK."
+thanks: "Code and data are available at: https://github.com/sarahhhh02/opendatatoronto.git"
 date: today
 date-format: long
 abstract: "Recognizing the importance of safety is to keep awareness of the homicide rates in Toronto and its surrounding factors. The dataset retrieved from OpenDataToronto keeps cases of homicide records between 2004 to 2023 covering Toronto. With this dataset, it is shown that there was a major drop of homicide cases through 2010 and 2011, carrying a consistent trend until 2015 and then picking up a considerable increase trend. On the whole, the most noticable factor is shootings being the most common homicide method."
@@ -42,8 +42,7 @@ This paper uses the data set from the OpenDataToronto [@ropendatatoronto] portal
 
 The major trends and patterns will be analyzed using the tool from ggplot2 [@rggplot2] that will graph the needed information. I will also make use of the tool knitr [@rknitr] to contruct tables to give a generalized view on what we are looking for in this paper. 
 
-All relevant materials supporting the code and data are available at Github.[^1]
-[^1]: https://github.com/sarahhhh02/opendatatoronto.git
+All relevant materials supporting the code and data are available at Github. 
 
 
 # Data {#sec-data}
@@ -56,7 +55,7 @@ For the general data, we have @tbl-homicidetypecounts that presents us with the 
 #| message: false
 #| echo: false
 #| tbl-cap: Total Homicide Cases per Year
-#| #| label: tbl-homicidetypecounts
+#| label: tbl-homicidetypecounts
 
 # Assuming 'occurrence_year' is the column containing the year information
 homicides_by_year <- edited_homicides_data |>
@@ -121,5 +120,5 @@ homicides_by_location|>
 
 ```
 
-# Discussion
+# References
 
