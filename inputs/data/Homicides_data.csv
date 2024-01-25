@@ -1,4 +1,4 @@
-X_id,event_unique_id,Occurence_date,Occurence_year,Occurence_month,Occurence_day,Occurence_dow,Occurence_DOY,Division,homicide_type,hood_158,neighbourhood_158,hood_140,neighbourhood_140,geometry
+X_id,EVENT_UNIQUE_ID,OCC_DATE,OCC_YEAR,OCC_MONTH,OCC_DAY,OCC_DOW,OCC_DOY,DIVISION,HOMICIDE_TYPE,HOOD_158,NEIGHBOURHOOD_158,HOOD_140,NEIGHBOURHOOD_140,geometry
 1,GO-2004111878,1073106000000,2004,January,3,Saturday,3,D53,Other,98,Rosedale-Moore Park,98,Rosedale-Moore Park (98),"{'type': 'MultiPoint', 'coordinates': [[-79.3928283609999, 43.685026441]]}"
 2,GO-2004125755,1073538000000,2004,January,8,Thursday,8,D42,Shooting,142,Woburn North,137,Woburn (137),"{'type': 'MultiPoint', 'coordinates': [[-79.233852025, 43.781781696]]}"
 3,GO-2004136086,1073538000000,2004,January,8,Thursday,8,D42,Shooting,146,Malvern East,132,Malvern (132),"{'type': 'MultiPoint', 'coordinates': [[-79.205574184, 43.810544206]]}"
